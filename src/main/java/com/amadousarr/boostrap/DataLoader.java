@@ -1,10 +1,13 @@
 package com.amadousarr.boostrap;
 
+import com.amadousarr.controllers.RecipeListController;
 import com.amadousarr.domain.*;
 import com.amadousarr.repositories.CategoryRepository;
 import com.amadousarr.repositories.IngredientRepository;
 import com.amadousarr.repositories.RecipeRepository;
 import com.amadousarr.repositories.UnitOfMeasureRepository;
+import com.amadousarr.services.RecipeService;
+import com.amadousarr.services.RecipeServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -117,7 +120,7 @@ public class DataLoader implements CommandLineRunner {
 
 
 
-        //We create our fist Recipe
+        //We create our first Recipe
         Recipe guacRecipe = new Recipe();
         guacRecipe.setCookTime(10);
         guacRecipe.setPrepTime(10);
@@ -206,5 +209,10 @@ public class DataLoader implements CommandLineRunner {
        // ingredients.add(avocado);
      /*  */
        // guacRecipe.setIngredients();
+
+        // I want to find all recipes
+        RecipeService recipeService = new RecipeServiceImpl(recipeRepository);
+        System.out.println(recipeService.getRecipes());
+
     }
 }

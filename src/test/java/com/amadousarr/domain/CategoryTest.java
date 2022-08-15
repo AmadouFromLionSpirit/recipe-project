@@ -1,13 +1,14 @@
 package com.amadousarr.domain;
 
 import org.aspectj.lang.annotation.Before;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryTest {
-    /*Let's create a property for category*/
+  //  Let's create a property for category
     Category category;
     @BeforeEach
     public void setUp() {
@@ -15,17 +16,20 @@ class CategoryTest {
     }
 
     @Test
-    void getId() {
-        Long idValue = 4L;
+    public void getId() {
+        Long expected = 9L;
+        Long idValue = 9L;
         category.setId(idValue);
-        assertEquals(idValue,category.getId());
+        assertEquals(expected,category.getId());
     }
 
-    @Test
-    void getDescription() {
+   @Ignore
+    public void getDescription() {
+        fail("The test has yet to be implemented");
     }
 
-    @Test
-    void getRecipes() {
+    @Ignore
+    public void getRecipes() {
+        fail("The test has yet to be implemented");
     }
 }
