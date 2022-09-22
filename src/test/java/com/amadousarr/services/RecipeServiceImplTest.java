@@ -3,26 +3,31 @@ package com.amadousarr.services;
 import com.amadousarr.domain.Ingredient;
 import com.amadousarr.domain.Recipe;
 import com.amadousarr.repositories.RecipeRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
-
+@ExtendWith(MockitoExtension.class)
 public class RecipeServiceImplTest {
+    @InjectMocks
     RecipeServiceImpl recipeService;
     @Mock
     RecipeRepository recipeRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+       // MockitoAnnotations.openMocks(this);
+       // recipeService = new RecipeServiceImpl(recipeRepository);
     }
 
     @Test
@@ -41,7 +46,7 @@ public class RecipeServiceImplTest {
         Ingredient carrot = new Ingredient();
         carrot.setId(1L);
         carrot.setDescription("Carrot");
-        recipe1.addIngredient(carrot);
+        recipe1.getIngredients().add(carrot);
         //We save the recipe in the repository
 
         recipeRepository.save(recipe1);
@@ -55,5 +60,23 @@ public class RecipeServiceImplTest {
         //are saying the method findAll()
         //we want to very that findAll has been called once, and only once
         verify(recipeRepository,times(1)).findAll();
+    }
+
+    @Test
+    public void getRecipeById() {
+     /*   Set<Recipe> recipes ;
+        recipes = new HashSet<>();
+        recipes.add(Recipe.builder().id(1L).description("fake recipe").build());
+        when(recipeRepository.findById(anyLong())).thenReturn(recipes);
+        assertEquals(1L, recipeService.getRecipeById(1L));*/
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipeReturned = recipeService.getRecipeById(1L);
+        assertNotNull(recipeReturned, "Null recipe returned");
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+
     }
 }

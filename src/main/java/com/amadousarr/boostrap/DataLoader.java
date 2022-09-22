@@ -1,6 +1,5 @@
 package com.amadousarr.boostrap;
 
-import com.amadousarr.controllers.RecipeListController;
 import com.amadousarr.domain.*;
 import com.amadousarr.repositories.CategoryRepository;
 import com.amadousarr.repositories.IngredientRepository;
@@ -12,9 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -157,13 +154,22 @@ public class DataLoader implements CommandLineRunner {
 
         guacRecipe.setNotes(guacNotes);
         recipeRepository.save(guacRecipe);
-
+        System.out.println("===================== Printing the Notes of the recipe ====================================");
+        System.out.println(guacRecipe.getNotes().getRecipeNotes());
 
         //We add the ingredients to our guacamole recipe
         guacRecipe.addIngredient(new Ingredient("ripe avocados",new BigDecimal(2),eachUom));
         guacRecipe.addIngredient(new Ingredient("kosher salt",new BigDecimal(0.25),teaSpoonUom));
         guacRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom));
+        //guacRecipe.getIngredients().add(new Ingredient("ripe avocados",new BigDecimal(2),eachUom));
+       // guacRecipe.getIngredients().add(new Ingredient("kosher salt",new BigDecimal(0.25),teaSpoonUom));
+       // guacRecipe.getIngredients().add(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom));
 
+
+       // I save the ingredients
+       /* ingredientRepository.save(ingredientOne);
+        ingredientRepository.save(ingredientTwo);
+        ingredientRepository.save(ingredientThree);*/
       // guacRecipe.setIngredients(guacRecipe.getIngredients());
 
 
@@ -212,7 +218,14 @@ public class DataLoader implements CommandLineRunner {
 
         // I want to find all recipes
         RecipeService recipeService = new RecipeServiceImpl(recipeRepository);
-        System.out.println(recipeService.getRecipes());
+        recipeService.getRecipes().forEach(recipe -> System.out.println(recipe.getDescription()));
+
+        // I want to see the categories of the first recipe
+        System.out.println("===================================================");
+        recipeService.getRecipeById(1L).getCategories().forEach(category -> System.out.println(category.getDescription()));
+
+        System.out.println("========================= Displaying ingredients of the recipe ==============================");
+        recipeService.getRecipeById(1l).getIngredients().forEach(ingredient -> System.out.println(ingredient.getDescription()));
 
     }
 }

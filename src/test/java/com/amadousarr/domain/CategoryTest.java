@@ -1,11 +1,11 @@
 package com.amadousarr.domain;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class CategoryTest {
   //  Let's create a property for category
@@ -23,12 +23,12 @@ class CategoryTest {
         assertEquals(expected,category.getId());
     }
 
-   @Ignore
+   @Disabled
     public void getDescription() {
         fail("The test has yet to be implemented");
     }
 
-    @Ignore
+    @Disabled
     public void getRecipes() {
         fail("The test has yet to be implemented");
     }
