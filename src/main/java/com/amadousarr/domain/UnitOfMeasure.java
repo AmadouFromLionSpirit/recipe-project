@@ -1,8 +1,13 @@
 package com.amadousarr.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class UnitOfMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,21 +15,7 @@ public class UnitOfMeasure {
     private String descriptor;
 
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescriptor() {
-        return descriptor;
-    }
-
-    public void setDescriptor(String uom) {
-        this.descriptor = uom;
-    }
 
 
 

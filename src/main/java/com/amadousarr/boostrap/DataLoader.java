@@ -217,7 +217,7 @@ public class DataLoader implements CommandLineRunner {
        // guacRecipe.setIngredients();
 
         // I want to find all recipes
-        RecipeService recipeService = new RecipeServiceImpl(recipeRepository);
+        RecipeService recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
         recipeService.getRecipes().forEach(recipe -> System.out.println(recipe.getDescription()));
 
         // I want to see the categories of the first recipe
